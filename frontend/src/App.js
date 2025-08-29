@@ -88,7 +88,7 @@ function App() {
         </nav>
       </header>
 
-      {/* HERO & FORM + FEATURES SIDE-BY-SIDE */}
+      {/* HERO TITLE */}
       <main
         style={{
           flex: 1,
@@ -99,6 +99,34 @@ function App() {
           padding: "0 24px",
         }}
       >
+        <section style={{ textAlign: "center", marginTop: 60, marginBottom: 32, maxWidth: 680 }}>
+          <h1
+            style={{
+              fontSize: "2.3rem",
+              fontWeight: 700,
+              marginBottom: 16,
+              color: colors.white,
+              letterSpacing: 1,
+              lineHeight: 1.1,
+            }}
+          >
+            AI-Powered Tactical Intelligence<br />
+            For Elite Football Teams
+          </h1>
+          <h2
+            style={{
+              fontSize: "1.15rem",
+              fontWeight: 500,
+              marginBottom: 0,
+              color: colors.brightGold,
+              lineHeight: 1.3,
+            }}
+          >
+            Instantly unlock winning strategies with enterprise-grade AI analysis in just 5 minutes.<br />
+            Built for coaches and technical directors.
+          </h2>
+        </section>
+        {/* FLEX CONTAINER */}
         <div
           style={{
             display: "flex",
@@ -107,69 +135,17 @@ function App() {
             justifyContent: "center",
             alignItems: "flex-start",
             width: "100%",
-            maxWidth: 1100,
-            marginTop: 60,
-            marginBottom: 56
+            maxWidth: 900,
+            margin: "0 auto 56px auto"
           }}
         >
-          {/* Subscription Form Column */}
-          <div style={{ flex: "0 1 440px", maxWidth: 440 }}>
-            <section style={{ textAlign: "center", marginBottom: 32 }}>
-              <h1
-                style={{
-                  fontSize: "2.2rem",
-                  fontWeight: 700,
-                  marginBottom: 16,
-                  color: colors.white,
-                  letterSpacing: 1,
-                  lineHeight: 1.15,
-                }}
-              >
-                AI-Powered Tactical Intelligence<br />
-                For Elite Football Teams
-              </h1>
-              <h2
-                style={{
-                  fontSize: "1.15rem",
-                  fontWeight: 400,
-                  marginBottom: 32,
-                  color: colors.brightGold,
-                  lineHeight: 1.35,
-                }}
-              >
-                Instantly unlock winning strategies with enterprise-grade AI analysis in just 5 minutes.<br />
-                Built for coaches and technical directors.
-              </h2>
-            </section>
-            <section
-              style={{
-                background: colors.white,
-                borderRadius: 18,
-                boxShadow: "0 8px 32px rgba(0,0,0,0.08)",
-                padding: "2.2rem 2rem",
-                textAlign: "center",
-                border: `2.5px solid ${colors.brightGold}`,
-              }}
-            >
-              <h3 style={{ color: colors.oxfordBlue, marginBottom: 10, fontWeight: 700, fontSize: 24 }}>
-                Request Demo & Early Access
-              </h3>
-              <p style={{ color: colors.charcoal, fontSize: 16, marginBottom: 24 }}>
-                Experience the future of football analysis.<br />
-                <span style={{ color: colors.aztecGold, fontWeight: 600 }}>
-                  Exclusive for professional teams.
-                </span>
-              </p>
-              <SubscriptionForm />
-            </section>
-          </div>
-          {/* Feature Boxes Column */}
+          {/* Feature Boxes Column - LEFT */}
           <div style={{
             flex: "1 1 360px",
             display: "flex",
             flexDirection: "column",
             gap: "28px",
-            minWidth: 320,
+            minWidth: 300,
             maxWidth: 400
           }}>
             {/* Box 1 */}
@@ -233,6 +209,38 @@ function App() {
                 Automated opponent analysis delivering winning strategies without manual research or data collection
               </p>
             </div>
+          </div>
+          {/* Subscription Form Column - RIGHT */}
+          <div style={{
+            flex: "0 1 440px",
+            maxWidth: 440,
+            minWidth: 320,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center"
+          }}>
+            <section
+              style={{
+                background: colors.white,
+                borderRadius: 18,
+                boxShadow: "0 8px 32px rgba(0,0,0,0.08)",
+                padding: "2.2rem 2rem",
+                textAlign: "center",
+                border: `2.5px solid ${colors.brightGold}`,
+                width: "100%",
+              }}
+            >
+              <h3 style={{ color: colors.oxfordBlue, marginBottom: 10, fontWeight: 700, fontSize: 24 }}>
+                Request Demo & Early Access
+              </h3>
+              <p style={{ color: colors.charcoal, fontSize: 16, marginBottom: 24 }}>
+                Experience the future of football analysis.<br />
+                <span style={{ color: colors.aztecGold, fontWeight: 600 }}>
+                  Exclusive for professional teams.
+                </span>
+              </p>
+              <SubscriptionForm />
+            </section>
           </div>
         </div>
       </main>
