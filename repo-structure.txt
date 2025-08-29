@@ -1,0 +1,19 @@
+/assets/logo.png                  # Your Tahleel.AI logo
+/frontend/                        # React app for Netlify
+  ├── public/
+  │     └── index.html
+  ├── src/
+  │     ├── App.js
+  │     ├── SubscriptionForm.js
+  │     ├── theme.js
+  │     ├── logo.png             # Copied logo
+  │     └── index.js
+  ├── package.json
+  └── README.md
+/backend/                        # Node.js/Express API for Render
+  ├── app.js
+  ├── supabaseClient.js
+  ├── email.js                   # Confirmation email logic
+  ├── package.json
+  ├── .env.example
+  └── README.md
