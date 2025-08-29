@@ -269,7 +269,7 @@ function App() {
                 </span>
               </p>
               {/* Ensure agreement text is white in SubscriptionForm */}
-              <SubscriptionForm agreementColor="#18243B" />
+              <SubscriptionForm agreementColor="#000000" />
             </section>
           </div>
         </div>
