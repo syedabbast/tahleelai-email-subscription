@@ -43,8 +43,13 @@ function SubscriptionForm() {
     setLoading(true);
     setStatus(null);
 
+    // Use the environment variable, fallback to default Render backend if not set
+    const API_BASE =
+      process.env.REACT_APP_API_URL ||
+      "https://tahleelai-email-subscription.onrender.com";
+
     try {
-      const res = await fetch(process.env.REACT_APP_API_URL || "/api/subscribe", {
+      const res = await fetch(`${API_BASE}/api/subscribe`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -127,7 +132,7 @@ function SubscriptionForm() {
         style={inputStyle}
       />
       <div style={{ marginTop: 12 }}>
-        <label>
+        <label style={{ color: colors.oxfordBlue }}>
           <input
             type="checkbox"
             name="newsletter_consent"
