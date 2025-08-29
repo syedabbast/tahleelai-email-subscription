@@ -101,7 +101,7 @@ function App() {
             }}
           >
             Instantly unlock winning strategies with enterprise-grade AI analysis in just 5 minutes.<br />
-            Built for coaches and technical directors.
+          
           </h2>
         </section>
 
@@ -124,7 +124,7 @@ function App() {
             Request Demo & Early Access
           </h3>
           <p style={{ color: colors.charcoal, fontSize: 16, marginBottom: 24 }}>
-            Experience the future of football analysis.<br />
+            Experience the future of sports analysis.<br />
             <span style={{ color: colors.aztecGold, fontWeight: 600 }}>
               Exclusive for professional teams.
             </span>
@@ -197,10 +197,10 @@ function App() {
         }}
       >
         <div style={{ fontWeight: 700, marginBottom: 8 }}>
-          TAHLEEL.ai &mdash; Auwire Technologies, Riyadh &bull; 2025
+          TAHLEEL.ai &mdash; Auwire Technologies,&bull; 2025
         </div>
         <div style={{ marginBottom: 8 }}>
-          Contact: <a style={{ color: colors.brightGold }} href="mailto:demo@tahleel.ai">demo@tahleel.ai</a>
+          Contact: <a style={{ color: colors.brightGold }} href="mailto:connect@auwiretech.com">connect@auwiretech.com</a>
         </div>
         <div>
           <a style={{ color: colors.brightGold, marginRight: 12 }} href="/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
