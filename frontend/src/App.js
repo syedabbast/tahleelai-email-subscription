@@ -2,16 +2,34 @@ import React from "react";
 import { colors } from "./theme";
 import SubscriptionForm from "./SubscriptionForm";
 
-// Trophy icon as React component (copied from tahleel.netlify.app)
-function TrophyIcon({ size = 40, color = colors.oxfordBlue }) {
+// Trophy icon exactly as in your image
+function TrophyIcon({ size = 38 }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 40 40" fill="none">
-      <rect width={size} height={size} rx={9} fill={colors.brightGold} />
+    <svg width={size} height={size} viewBox="0 0 38 38" fill="none">
+      <rect width={size} height={size} rx="9" fill="#FFD12A" />
       <g>
-        <path d="M14 11a6 6 0 0 0 12 0h-12zm0 0v2a6 6 0 0 0 12 0v-2" stroke={color} strokeWidth="2" strokeLinecap="round"/>
-        <path d="M20 23v4M16 27h8" stroke={color} strokeWidth="2" strokeLinecap="round"/>
-        <path d="M8 13c0 4 2.5 6 6 6" stroke={color} strokeWidth="2"/>
-        <path d="M32 13c0 4-2.5 6-6 6" stroke={color} strokeWidth="2"/>
+        <path
+          d="M13.5 11a5.5 5.5 0 0 0 11 0h-11zm0 0v2a5.5 5.5 0 0 0 11 0v-2"
+          stroke="#18243B"
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
+        <path
+          d="M19 23v4M15 27h8"
+          stroke="#18243B"
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
+        <path
+          d="M8 13c0 4 2.5 6 5.5 6"
+          stroke="#18243B"
+          strokeWidth="2"
+        />
+        <path
+          d="M30 13c0 4-2.5 6-5.5 6"
+          stroke="#18243B"
+          strokeWidth="2"
+        />
       </g>
     </svg>
   );
@@ -47,7 +65,7 @@ function App() {
         }}
       >
         <div style={{ display: "flex", alignItems: "center" }}>
-          <TrophyIcon size={40} />
+          <TrophyIcon size={38} />
           <div style={{ marginLeft: 18 }}>
             <span style={{
               fontWeight: 700,
@@ -122,8 +140,7 @@ function App() {
               lineHeight: 1.3,
             }}
           >
-            Instantly unlock winning strategies with enterprise-grade AI analysis in just 5 minutes.<br />
-            Built for coaches and technical directors.
+            Instantly unlock winning strategies with enterprise-grade AI analysis in just 5 minutes.
           </h2>
         </section>
         {/* FLEX CONTAINER */}
@@ -145,7 +162,7 @@ function App() {
             display: "flex",
             flexDirection: "column",
             gap: "28px",
-            minWidth: 300,
+            minWidth: 320,
             maxWidth: 400
           }}>
             {/* Box 1 */}
@@ -154,16 +171,20 @@ function App() {
                 background: colors.oxfordBlue,
                 borderRadius: 14,
                 border: `2.5px solid ${colors.brightGold}`,
-                padding: "30px 28px",
+                padding: "28px 22px",
                 boxShadow: "0 2px 12px rgba(0,0,0,0.07)",
                 textAlign: "left",
                 color: colors.white,
+                minHeight: 142,
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
               }}
             >
               <h4 style={{ color: colors.brightGold, fontWeight: 700, fontSize: 20, marginBottom: 12 }}>
                 Instant Tactical Analysis
               </h4>
-              <ul style={{ color: colors.white, fontSize: 17, marginLeft: 18, marginBottom: 0 }}>
+              <ul style={{ color: colors.white, fontSize: 17, marginLeft: 18, marginBottom: 0, lineHeight: 1.6 }}>
                 <li>5-minute video-to-report workflow</li>
                 <li>AI-driven formation and weakness detection</li>
                 <li>Actionable insights for every match</li>
@@ -175,16 +196,20 @@ function App() {
                 background: colors.oxfordBlue,
                 borderRadius: 14,
                 border: `2.5px solid ${colors.brightGold}`,
-                padding: "30px 28px",
+                padding: "28px 22px",
                 boxShadow: "0 2px 12px rgba(0,0,0,0.07)",
                 textAlign: "left",
                 color: colors.white,
+                minHeight: 142,
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
               }}
             >
               <h4 style={{ color: colors.brightGold, fontWeight: 700, fontSize: 20, marginBottom: 12 }}>
                 Royal Experience
               </h4>
-              <ul style={{ color: colors.white, fontSize: 17, marginLeft: 18, marginBottom: 0 }}>
+              <ul style={{ color: colors.white, fontSize: 17, marginLeft: 18, marginBottom: 0, lineHeight: 1.6 }}>
                 <li>Premium, secure platform for elite organizations</li>
                 <li>99%+ uptime, global cloud infrastructure</li>
                 <li>Dedicated onboarding and support</li>
@@ -196,16 +221,20 @@ function App() {
                 background: colors.oxfordBlue,
                 borderRadius: 14,
                 border: `2.5px solid ${colors.brightGold}`,
-                padding: "30px 28px",
+                padding: "28px 22px",
                 boxShadow: "0 2px 12px rgba(0,0,0,0.07)",
                 textAlign: "left",
                 color: colors.white,
+                minHeight: 142,
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
               }}
             >
               <h4 style={{ color: colors.brightGold, fontWeight: 700, fontSize: 20, marginBottom: 12 }}>
                 Zero-Effort Intelligence
               </h4>
-              <p style={{ color: colors.white, fontSize: 16, marginLeft: 2, marginBottom: 0 }}>
+              <p style={{ color: colors.white, fontSize: 16, marginLeft: 2, marginBottom: 0, lineHeight: 1.6 }}>
                 Automated opponent analysis delivering winning strategies without manual research or data collection
               </p>
             </div>
@@ -239,7 +268,8 @@ function App() {
                   Exclusive for professional teams.
                 </span>
               </p>
-              <SubscriptionForm />
+              {/* Ensure agreement text is white in SubscriptionForm */}
+              <SubscriptionForm agreementColor="#18243B" />
             </section>
           </div>
         </div>
@@ -258,10 +288,10 @@ function App() {
         }}
       >
         <div style={{ fontWeight: 700, marginBottom: 8 }}>
-          TAHLEEL.ai &mdash; Auwire Technologies, Riyadh &bull; 2025
+          TAHLEEL.ai &mdash; Auwire Technologies &bull; 2025
         </div>
         <div style={{ marginBottom: 8 }}>
-          Contact: <a style={{ color: colors.brightGold }} href="mailto:demo@tahleel.ai">demo@tahleel.ai</a>
+          Contact: <a style={{ color: colors.brightGold }} href="mailto:connect@auwiretech.com">Connect@auwiretech.com</a>
         </div>
         <div>
           <a style={{ color: colors.brightGold, marginRight: 12 }} href="/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
