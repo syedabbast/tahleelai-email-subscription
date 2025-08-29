@@ -243,26 +243,38 @@ function App() {
           <div
             style={{
               flex: "1 1 320px",
-              background: "#e3e6eb", // matches the color in your provided image ![image2](image2)
-              borderRadius: 14,
-              border: `1px solid ${colors.charcoal}`,
+              background: "#e3e6eb", // matches the color in your provided image ![image4](image4)
+              borderRadius: 18,
+              border: `none`,
               padding: "30px 28px",
               boxShadow: "0 2px 12px rgba(0,0,0,0.07)",
               textAlign: "left",
               minWidth: 280,
-              maxWidth: 360,
+              maxWidth: 400,
               marginBottom: 0,
               color: colors.charcoal,
               display: "flex",
               alignItems: "center",
-              justifyContent: "center",
+              justifyContent: "flex-start",
             }}
           >
             <div>
-              <h4 style={{ color: colors.charcoal, fontWeight: 700, fontSize: 20, marginBottom: 12 }}>
+              <h4 style={{
+                color: colors.charcoal,
+                fontWeight: 700,
+                fontSize: 22,
+                marginBottom: 12,
+                marginTop: 0,
+              }}>
                 Zero-Effort Intelligence
               </h4>
-              <p style={{ color: colors.charcoal, fontSize: 16 }}>
+              <p style={{
+                color: colors.charcoal,
+                fontSize: 16,
+                margin: 0,
+                fontWeight: 400,
+                lineHeight: 1.3,
+              }}>
                 Automated opponent analysis delivering winning strategies without manual research or data collection
               </p>
             </div>
