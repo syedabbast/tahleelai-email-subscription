@@ -2,45 +2,27 @@ import React from "react";
 import { colors } from "./theme";
 import SubscriptionForm from "./SubscriptionForm";
 
+// Trophy icon as React component (copied from tahleel.netlify.app)
+function TrophyIcon({ size = 40, color = colors.oxfordBlue }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 40 40" fill="none">
+      <rect width={size} height={size} rx={9} fill={colors.brightGold} />
+      <g>
+        <path d="M14 11a6 6 0 0 0 12 0h-12zm0 0v2a6 6 0 0 0 12 0v-2" stroke={color} strokeWidth="2" strokeLinecap="round"/>
+        <path d="M20 23v4M16 27h8" stroke={color} strokeWidth="2" strokeLinecap="round"/>
+        <path d="M8 13c0 4 2.5 6 6 6" stroke={color} strokeWidth="2"/>
+        <path d="M32 13c0 4-2.5 6-6 6" stroke={color} strokeWidth="2"/>
+      </g>
+    </svg>
+  );
+}
+
 const NAV_LINKS = [
   { name: "Home", href: "#" },
   { name: "Features", href: "#features" },
   { name: "Demo", href: "#demo" },
   { name: "Contact", href: "#contact" },
 ];
-
-// Trophy SVG icon component
-function TrophyIcon({ size = 38, color = colors.oxfordBlue }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 38 38" fill="none">
-      <rect width={size} height={size} rx={9} fill={colors.brightGold} />
-      <g>
-        <path
-          d="M13.5 11a5.5 5.5 0 0 0 11 0h-11zm0 0v2a5.5 5.5 0 0 0 11 0v-2"
-          stroke={color}
-          strokeWidth="2"
-          strokeLinecap="round"
-        />
-        <path
-          d="M19 23v4M15 27h8"
-          stroke={color}
-          strokeWidth="2"
-          strokeLinecap="round"
-        />
-        <path
-          d="M8 13c0 4 2.5 6 5.5 6"
-          stroke={color}
-          strokeWidth="2"
-        />
-        <path
-          d="M30 13c0 4-2.5 6-5.5 6"
-          stroke={color}
-          strokeWidth="2"
-        />
-      </g>
-    </svg>
-  );
-}
 
 function App() {
   return (
@@ -65,10 +47,8 @@ function App() {
         }}
       >
         <div style={{ display: "flex", alignItems: "center" }}>
-          <div style={{ marginRight: 18, display: "flex", alignItems: "center" }}>
-            <TrophyIcon size={38} />
-          </div>
-          <div>
+          <TrophyIcon size={40} />
+          <div style={{ marginLeft: 18 }}>
             <span style={{
               fontWeight: 700,
               fontSize: 28,
@@ -108,7 +88,7 @@ function App() {
         </nav>
       </header>
 
-      {/* HERO & FORM */}
+      {/* HERO & FORM + FEATURES SIDE-BY-SIDE */}
       <main
         style={{
           flex: 1,
@@ -119,167 +99,142 @@ function App() {
           padding: "0 24px",
         }}
       >
-        <section
+        <div
           style={{
-            maxWidth: 600,
-            width: "100%",
-            margin: "60px 0 0 0",
-            textAlign: "center",
-          }}
-        >
-          <h1
-            style={{
-              fontSize: "2.8rem",
-              fontWeight: 700,
-              marginBottom: 16,
-              color: colors.white,
-              letterSpacing: 1,
-              lineHeight: 1.15,
-            }}
-          >
-            AI-Powered Tactical Intelligence<br />
-            For Elite Football Teams
-          </h1>
-          <h2
-            style={{
-              fontSize: "1.3rem",
-              fontWeight: 400,
-              marginBottom: 32,
-              color: colors.brightGold,
-              lineHeight: 1.35,
-            }}
-          >
-            Instantly unlock winning strategies with enterprise-grade AI analysis in just 5 minutes.<br />
-            Built for coaches and technical directors.
-          </h2>
-        </section>
-
-        {/* Subscription Form */}
-        <section
-          style={{
-            width: "100%",
-            maxWidth: 440,
-            background: colors.white,
-            borderRadius: 18,
-            boxShadow: "0 8px 32px rgba(0,0,0,0.08)",
-            padding: "2.2rem 2rem",
-            marginBottom: 56,
-            marginTop: 0,
-            textAlign: "center",
-            border: `2.5px solid ${colors.brightGold}`,
-          }}
-        >
-          <h3 style={{ color: colors.oxfordBlue, marginBottom: 10, fontWeight: 700, fontSize: 24 }}>
-            Request Demo & Early Access
-          </h3>
-          <p style={{ color: colors.charcoal, fontSize: 16, marginBottom: 24 }}>
-            Experience the future of football analysis.<br />
-            <span style={{ color: colors.aztecGold, fontWeight: 600 }}>
-              Exclusive for professional teams.
-            </span>
-          </p>
-          <SubscriptionForm />
-        </section>
-
-        {/* Minimal Feature Highlights - three side by side boxes */}
-        <section
-          id="features"
-          style={{
-            margin: "0 auto 54px auto",
-            maxWidth: 1200,
             display: "flex",
             flexDirection: "row",
-            gap: "38px",
+            gap: "48px",
             justifyContent: "center",
-            flexWrap: "wrap",
+            alignItems: "flex-start",
+            width: "100%",
+            maxWidth: 1100,
+            marginTop: 60,
+            marginBottom: 56
           }}
         >
-          <div
-            style={{
-              flex: "1 1 320px",
-              background: colors.oxfordBlue,
-              borderRadius: 14,
-              border: `1px solid ${colors.brightGold}`,
-              padding: "30px 28px",
-              boxShadow: "0 2px 12px rgba(0,0,0,0.07)",
-              textAlign: "left",
-              minWidth: 280,
-              maxWidth: 360,
-              marginBottom: 0,
-            }}
-          >
-            <h4 style={{ color: colors.brightGold, fontWeight: 700, fontSize: 20, marginBottom: 12 }}>
-              Instant Tactical Analysis
-            </h4>
-            <ul style={{ color: colors.white, fontSize: 17, marginLeft: 18, marginBottom: 0 }}>
-              <li>5-minute video-to-report workflow</li>
-              <li>AI-driven formation and weakness detection</li>
-              <li>Actionable insights for every match</li>
-            </ul>
+          {/* Subscription Form Column */}
+          <div style={{ flex: "0 1 440px", maxWidth: 440 }}>
+            <section style={{ textAlign: "center", marginBottom: 32 }}>
+              <h1
+                style={{
+                  fontSize: "2.2rem",
+                  fontWeight: 700,
+                  marginBottom: 16,
+                  color: colors.white,
+                  letterSpacing: 1,
+                  lineHeight: 1.15,
+                }}
+              >
+                AI-Powered Tactical Intelligence<br />
+                For Elite Football Teams
+              </h1>
+              <h2
+                style={{
+                  fontSize: "1.15rem",
+                  fontWeight: 400,
+                  marginBottom: 32,
+                  color: colors.brightGold,
+                  lineHeight: 1.35,
+                }}
+              >
+                Instantly unlock winning strategies with enterprise-grade AI analysis in just 5 minutes.<br />
+                Built for coaches and technical directors.
+              </h2>
+            </section>
+            <section
+              style={{
+                background: colors.white,
+                borderRadius: 18,
+                boxShadow: "0 8px 32px rgba(0,0,0,0.08)",
+                padding: "2.2rem 2rem",
+                textAlign: "center",
+                border: `2.5px solid ${colors.brightGold}`,
+              }}
+            >
+              <h3 style={{ color: colors.oxfordBlue, marginBottom: 10, fontWeight: 700, fontSize: 24 }}>
+                Request Demo & Early Access
+              </h3>
+              <p style={{ color: colors.charcoal, fontSize: 16, marginBottom: 24 }}>
+                Experience the future of football analysis.<br />
+                <span style={{ color: colors.aztecGold, fontWeight: 600 }}>
+                  Exclusive for professional teams.
+                </span>
+              </p>
+              <SubscriptionForm />
+            </section>
           </div>
-          <div
-            style={{
-              flex: "1 1 320px",
-              background: colors.oxfordBlue,
-              borderRadius: 14,
-              border: `1px solid ${colors.aztecGold}`,
-              padding: "30px 28px",
-              boxShadow: "0 2px 12px rgba(0,0,0,0.07)",
-              textAlign: "left",
-              minWidth: 280,
-              maxWidth: 360,
-              marginBottom: 0,
-            }}
-          >
-            <h4 style={{ color: colors.aztecGold, fontWeight: 700, fontSize: 20, marginBottom: 12 }}>
-              Royal Experience
-            </h4>
-            <ul style={{ color: colors.white, fontSize: 17, marginLeft: 18, marginBottom: 0 }}>
-              <li>Premium, secure platform for elite organizations</li>
-              <li>99%+ uptime, global cloud infrastructure</li>
-              <li>Dedicated onboarding and support</li>
-            </ul>
-          </div>
-          <div
-            style={{
-              flex: "1 1 320px",
-              background: "#e3e6eb", // matches the color in your provided image ![image4](image4)
-              borderRadius: 18,
-              border: `none`,
-              padding: "30px 28px",
-              boxShadow: "0 2px 12px rgba(0,0,0,0.07)",
-              textAlign: "left",
-              minWidth: 280,
-              maxWidth: 400,
-              marginBottom: 0,
-              color: colors.charcoal,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "flex-start",
-            }}
-          >
-            <div>
-              <h4 style={{
-                color: colors.charcoal,
-                fontWeight: 700,
-                fontSize: 22,
-                marginBottom: 12,
-                marginTop: 0,
-              }}>
+          {/* Feature Boxes Column */}
+          <div style={{
+            flex: "1 1 360px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "28px",
+            minWidth: 320,
+            maxWidth: 400
+          }}>
+            {/* Box 1 */}
+            <div
+              style={{
+                background: colors.oxfordBlue,
+                borderRadius: 14,
+                border: `2.5px solid ${colors.brightGold}`,
+                padding: "30px 28px",
+                boxShadow: "0 2px 12px rgba(0,0,0,0.07)",
+                textAlign: "left",
+                color: colors.white,
+              }}
+            >
+              <h4 style={{ color: colors.brightGold, fontWeight: 700, fontSize: 20, marginBottom: 12 }}>
+                Instant Tactical Analysis
+              </h4>
+              <ul style={{ color: colors.white, fontSize: 17, marginLeft: 18, marginBottom: 0 }}>
+                <li>5-minute video-to-report workflow</li>
+                <li>AI-driven formation and weakness detection</li>
+                <li>Actionable insights for every match</li>
+              </ul>
+            </div>
+            {/* Box 2 */}
+            <div
+              style={{
+                background: colors.oxfordBlue,
+                borderRadius: 14,
+                border: `2.5px solid ${colors.brightGold}`,
+                padding: "30px 28px",
+                boxShadow: "0 2px 12px rgba(0,0,0,0.07)",
+                textAlign: "left",
+                color: colors.white,
+              }}
+            >
+              <h4 style={{ color: colors.brightGold, fontWeight: 700, fontSize: 20, marginBottom: 12 }}>
+                Royal Experience
+              </h4>
+              <ul style={{ color: colors.white, fontSize: 17, marginLeft: 18, marginBottom: 0 }}>
+                <li>Premium, secure platform for elite organizations</li>
+                <li>99%+ uptime, global cloud infrastructure</li>
+                <li>Dedicated onboarding and support</li>
+              </ul>
+            </div>
+            {/* Box 3 */}
+            <div
+              style={{
+                background: colors.oxfordBlue,
+                borderRadius: 14,
+                border: `2.5px solid ${colors.brightGold}`,
+                padding: "30px 28px",
+                boxShadow: "0 2px 12px rgba(0,0,0,0.07)",
+                textAlign: "left",
+                color: colors.white,
+              }}
+            >
+              <h4 style={{ color: colors.brightGold, fontWeight: 700, fontSize: 20, marginBottom: 12 }}>
                 Zero-Effort Intelligence
               </h4>
-              <p style={{
-                color: colors.charcoal,
-                fontSize: 16,
-                margin: 0,
-                fontWeight: 400,
-                lineHeight: 1.3,
-              }}>
+              <p style={{ color: colors.white, fontSize: 16, marginLeft: 2, marginBottom: 0 }}>
                 Automated opponent analysis delivering winning strategies without manual research or data collection
               </p>
             </div>
           </div>
-        </section>
+        </div>
       </main>
 
       {/* FOOTER */}
