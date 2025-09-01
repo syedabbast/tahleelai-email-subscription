@@ -53,7 +53,8 @@ app.post("/api/subscribe", async (req, res) => {
     utm_medium,
     utm_campaign,
     referrer_url,
-    ip_address: getIp(req),
+    // FIX: Only store the first IP address for inet column
+    ip_address: getIp(req).split(',')[0].trim(),
     user_agent: req.headers["user-agent"] || "",
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString(),
