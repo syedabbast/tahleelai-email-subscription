@@ -7,9 +7,11 @@ const app = express();
 app.use(express.json());
 
 // CORS for Netlify frontend
-app.use(cors({
-  origin: process.env.FRONTEND_URL || "*"
-}));
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL || "*",
+  })
+);
 
 // Helper to get IP address (from request headers)
 function getIp(req) {
@@ -53,8 +55,7 @@ app.post("/api/subscribe", async (req, res) => {
     utm_medium,
     utm_campaign,
     referrer_url,
-    // FIX: Only store the first IP address for inet column
-    ip_address: getIp(req).split(',')[0].trim(),
+    ip_address: getIp(req).split(",")[0].trim(),
     user_agent: req.headers["user-agent"] || "",
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString(),
@@ -69,7 +70,10 @@ app.post("/api/subscribe", async (req, res) => {
 
     if (error) {
       // Unique violation (already exists)
-      if (error.code === "23505" || (error.details && error.details.includes("already exists"))) {
+      if (
+        error.code === "23505" ||
+        (error.details && error.details.includes("already exists"))
+      ) {
         return res.status(409).json({ error: "Email already subscribed." });
       }
       throw error;
@@ -82,6 +86,45 @@ app.post("/api/subscribe", async (req, res) => {
   } catch (err) {
     console.error("Subscribe error:", err);
     return res.status(500).json({ error: "Could not subscribe. Please try again." });
+  }
+});
+
+// Email confirmation endpoint
+app.post("/api/confirm", async (req, res) => {
+  const { token } = req.body;
+  if (!token) {
+    return res.status(400).json({ error: "Missing confirmation token." });
+  }
+
+  try {
+    // Find the subscriber by ID (token)
+    const { data, error } = await supabase
+      .from("email_subscribers")
+      .select("*")
+      .eq("id", token)
+      .single();
+
+    if (error || !data) {
+      return res.status(404).json({ error: "Invalid or expired confirmation link." });
+    }
+    if (data.status === "confirmed") {
+      return res.json({ success: true, message: "Already confirmed." });
+    }
+
+    // Update status to confirmed
+    const { error: updateError } = await supabase
+      .from("email_subscribers")
+      .update({ status: "confirmed", updated_at: new Date().toISOString() })
+      .eq("id", token);
+
+    if (updateError) {
+      throw updateError;
+    }
+
+    return res.json({ success: true, message: "Email confirmed successfully." });
+  } catch (err) {
+    console.error("Confirm error:", err);
+    return res.status(500).json({ error: "Could not confirm email. Please try again." });
   }
 });
 
