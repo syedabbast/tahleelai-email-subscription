@@ -1,16 +1,15 @@
-// Confirmation email logic (stub)
-const nodemailer = require("nodemailer");
+const sgMail = require('@sendgrid/mail');
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const BASE_URL = process.env.FRONTEND_URL || "https://tahleelai.netlify.app";
 
 async function sendConfirmationEmail(email, id, full_name) {
-  // Generate confirmation link
   const confirmUrl = `${BASE_URL}/confirm?token=${encodeURIComponent(id)}`;
 
-  // Compose email
   const msg = {
-    from: process.env.EMAIL_FROM || "noreply@tahleel.ai",
     to: email,
+    from: process.env.EMAIL_FROM || "subscribe@auwiretech.com",
     subject: "Confirm your subscription to Tahleel.AI",
     html: `
       <div style="font-family:Inter,Arial,sans-serif;">
@@ -25,18 +24,7 @@ async function sendConfirmationEmail(email, id, full_name) {
     `
   };
 
-  // Send with nodemailer (configure SMTP in .env)
-  const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: parseInt(process.env.SMTP_PORT || "587"),
-    secure: false,
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS
-    }
-  });
-
-  await transporter.sendMail(msg);
+  await sgMail.send(msg);
 }
 
 module.exports = sendConfirmationEmail;
