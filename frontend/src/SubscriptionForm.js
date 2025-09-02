@@ -1,16 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { colors } from "./theme";
 
-function getUTMParams() {
-  const params = {};
-  const url = new URL(window.location.href);
-  ["utm_source", "utm_medium", "utm_campaign"].forEach(k => {
-    if (url.searchParams.get(k)) params[k] = url.searchParams.get(k);
-  });
-  return params;
-}
-
-function SubscriptionForm() {
+function SubscriptionForm({ agreementColor = colors.charcoal }) {
   const [form, setForm] = useState({
     full_name: "",
     job_title: "",
@@ -18,47 +9,29 @@ function SubscriptionForm() {
     team_name: "",
     league: "",
     interests: "",
-    newsletter_consent: true,
+    newsletter_consent: false,
   });
-  const [status, setStatus] = useState(null); // success or error message
   const [loading, setLoading] = useState(false);
-  const [utm, setUtm] = useState({});
-  const [referrer, setReferrer] = useState("");
+  const [status, setStatus] = useState("");
 
-  useEffect(() => {
-    setUtm(getUTMParams());
-    setReferrer(document.referrer);
-  }, []);
-
-  const handleChange = e => {
+  const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setForm(f => ({
-      ...f,
-      [name]: type === "checkbox" ? checked : value
+    setForm((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setStatus(null);
-
-    // Use the environment variable, fallback to default Render backend if not set
-    const API_BASE =
-      process.env.REACT_APP_API_URL ||
-      "https://tahleelai-email-subscription.onrender.com";
-
+    setStatus("");
     try {
-      const res = await fetch(`${API_BASE}/api/subscribe`, {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/subscribe`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...form,
-          ...utm,
-          referrer_url: referrer,
-        }),
+        body: JSON.stringify(form),
       });
-      const json = await res.json();
       if (res.ok) {
         setStatus("success");
         setForm({
@@ -68,10 +41,11 @@ function SubscriptionForm() {
           team_name: "",
           league: "",
           interests: "",
-          newsletter_consent: true,
+          newsletter_consent: false,
         });
       } else {
-        setStatus(json.error || "Failed to subscribe. Try again.");
+        const data = await res.json();
+        setStatus(data.error || "Submission failed. Try again.");
       }
     } catch (err) {
       setStatus("Network error. Try again.");
@@ -80,8 +54,8 @@ function SubscriptionForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ textAlign: "left" }}>
-      <label style={{ fontWeight: 600 }}>Full Name</label>
+    <form onSubmit={handleSubmit} style={{ textAlign: "left", color: colors.charcoal }}>
+      <label style={{ fontWeight: 600, color: colors.charcoal }}>Full Name</label>
       <input
         name="full_name"
         value={form.full_name}
@@ -89,7 +63,7 @@ function SubscriptionForm() {
         placeholder="Your name"
         style={inputStyle}
       />
-      <label style={{ fontWeight: 600, marginTop: 10 }}>Job Title</label>
+      <label style={{ fontWeight: 600, marginTop: 10, color: colors.charcoal }}>Job Title</label>
       <input
         name="job_title"
         value={form.job_title}
@@ -97,7 +71,7 @@ function SubscriptionForm() {
         placeholder="e.g. Analyst, Coach"
         style={inputStyle}
       />
-      <label style={{ fontWeight: 600, marginTop: 10 }}>Email *</label>
+      <label style={{ fontWeight: 600, marginTop: 10, color: colors.charcoal }}>Email *</label>
       <input
         name="email"
         value={form.email}
@@ -107,7 +81,7 @@ function SubscriptionForm() {
         placeholder="you@email.com"
         style={inputStyle}
       />
-      <label style={{ fontWeight: 600, marginTop: 10 }}>Team Name</label>
+      <label style={{ fontWeight: 600, marginTop: 10, color: colors.charcoal }}>Team Name</label>
       <input
         name="team_name"
         value={form.team_name}
@@ -115,7 +89,7 @@ function SubscriptionForm() {
         placeholder="Optional"
         style={inputStyle}
       />
-      <label style={{ fontWeight: 600, marginTop: 10 }}>League</label>
+      <label style={{ fontWeight: 600, marginTop: 10, color: colors.charcoal }}>League</label>
       <input
         name="league"
         value={form.league}
@@ -123,7 +97,7 @@ function SubscriptionForm() {
         placeholder="Optional"
         style={inputStyle}
       />
-      <label style={{ fontWeight: 600, marginTop: 10 }}>Interests</label>
+      <label style={{ fontWeight: 600, marginTop: 10, color: colors.charcoal }}>Interests</label>
       <input
         name="interests"
         value={form.interests}
@@ -132,7 +106,7 @@ function SubscriptionForm() {
         style={inputStyle}
       />
       <div style={{ marginTop: 12 }}>
-        <label style={{ color: colors.oxfordBlue }}>
+        <label style={{ color: agreementColor }}>
           <input
             type="checkbox"
             name="newsletter_consent"
@@ -181,6 +155,7 @@ const inputStyle = {
   border: `1px solid #ddd`,
   fontSize: 15,
   background: colors.white,
+  color: colors.charcoal, // updated to dark font color
 };
 
 export default SubscriptionForm;
