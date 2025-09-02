@@ -36,7 +36,9 @@ async function sendConfirmationEmail(email, id, full_name) {
                   </tr>
                   <tr>
                     <td style="padding:12px 32px 0 32px;">
-                      <p style="font-size:17px;color:#222;margin:0 0 16px 0;">Hi ${full_name || ""},</p>
+                      <p style="font-size:17px;color:#222;margin:0 0 16px 0;">
+                        Dear Coach ${full_name || "Coach"},
+                      </p>
                       <p style="font-size:16px;color:#222;margin:0 0 24px 0;">
                         Thanks for subscribing.<br>
                         Please confirm your subscription by clicking the link below:
