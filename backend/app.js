@@ -9,7 +9,9 @@ app.use(express.json());
 // CORS for Netlify frontend
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || "*",
+    origin: "https://tahleelsubs.netlify.app", // Explicitly set your frontend domain
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
   })
 );
 
