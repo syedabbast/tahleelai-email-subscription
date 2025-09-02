@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import { colors } from "./theme";
 
 function ConfirmPage() {
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const [status, setStatus] = useState("pending"); // 'pending', 'success', 'error'
   const [message, setMessage] = useState("");
 
@@ -27,6 +28,10 @@ function ConfirmPage() {
         if (response.ok) {
           setStatus("success");
           setMessage("Your email has been confirmed! Thank you for subscribing to Tahleel.AI.");
+          // Redirect to thank you page after 2 seconds
+          setTimeout(() => {
+            navigate("/thank-you");
+          }, 2000);
         } else {
           const data = await response.json();
           setStatus("error");
@@ -37,7 +42,7 @@ function ConfirmPage() {
         setStatus("error");
         setMessage("Network error. Please try again later.");
       });
-  }, [searchParams]);
+  }, [searchParams, navigate]);
 
   return (
     <div
@@ -69,22 +74,9 @@ function ConfirmPage() {
         </p>
         {status === "success" && (
           <div style={{ marginTop: 28 }}>
-            <a
-              href="/"
-              style={{
-                display: "inline-block",
-                background: colors.brightGold,
-                color: colors.oxfordBlue,
-                fontWeight: 700,
-                fontSize: 18,
-                padding: "12px 38px",
-                borderRadius: 8,
-                textDecoration: "none",
-                boxShadow: "0 2px 6px rgba(0,0,0,0.08)",
-              }}
-            >
-              Go to Homepage
-            </a>
+            <p style={{ color: colors.white, fontSize: 16 }}>
+              Redirecting you to next steps...
+            </p>
           </div>
         )}
       </div>
