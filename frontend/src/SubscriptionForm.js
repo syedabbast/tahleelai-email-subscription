@@ -1,7 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { colors } from "./theme";
 
-function SubscriptionForm({ agreementColor = colors.charcoal }) {
+function getUTMParams() {
+  const params = {};
+  const url = new URL(window.location.href);
+  ["utm_source", "utm_medium", "utm_campaign"].forEach(k => {
+    if (url.searchParams.get(k)) params[k] = url.searchParams.get(k);
+  });
+  return params;
+}
+
+function SubscriptionForm() {
   const [form, setForm] = useState({
     full_name: "",
     job_title: "",
@@ -9,29 +18,46 @@ function SubscriptionForm({ agreementColor = colors.charcoal }) {
     team_name: "",
     league: "",
     interests: "",
-    newsletter_consent: false,
+    newsletter_consent: true,
   });
+  const [status, setStatus] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [status, setStatus] = useState("");
+  const [utm, setUtm] = useState({});
+  const [referrer, setReferrer] = useState("");
 
-  const handleChange = (e) => {
+  useEffect(() => {
+    setUtm(getUTMParams());
+    setReferrer(document.referrer);
+  }, []);
+
+  const handleChange = e => {
     const { name, value, type, checked } = e.target;
-    setForm((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
+    setForm(f => ({
+      ...f,
+      [name]: type === "checkbox" ? checked : value
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
     setLoading(true);
-    setStatus("");
+    setStatus(null);
+
+    const API_BASE =
+      process.env.REACT_APP_API_URL ||
+      "https://tahleelai-email-subscription.onrender.com";
+
     try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/subscribe`, {
+      const res = await fetch(`${API_BASE}/api/subscribe`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          ...form,
+          ...utm,
+          referrer_url: referrer,
+        }),
       });
+      const json = await res.json();
       if (res.ok) {
         setStatus("success");
         setForm({
@@ -41,11 +67,10 @@ function SubscriptionForm({ agreementColor = colors.charcoal }) {
           team_name: "",
           league: "",
           interests: "",
-          newsletter_consent: false,
+          newsletter_consent: true,
         });
       } else {
-        const data = await res.json();
-        setStatus(data.error || "Submission failed. Try again.");
+        setStatus(json.error || "Failed to subscribe. Try again.");
       }
     } catch (err) {
       setStatus("Network error. Try again.");
@@ -54,8 +79,8 @@ function SubscriptionForm({ agreementColor = colors.charcoal }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ textAlign: "left", color: colors.charcoal }}>
-      <label style={{ fontWeight: 600, color: colors.charcoal }}>Full Name</label>
+    <form onSubmit={handleSubmit} style={{ textAlign: "left" }}>
+      <label style={{ fontWeight: 600 }}>Full Name</label>
       <input
         name="full_name"
         value={form.full_name}
@@ -63,7 +88,7 @@ function SubscriptionForm({ agreementColor = colors.charcoal }) {
         placeholder="Your name"
         style={inputStyle}
       />
-      <label style={{ fontWeight: 600, marginTop: 10, color: colors.charcoal }}>Job Title</label>
+      <label style={{ fontWeight: 600, marginTop: 10 }}>Job Title</label>
       <input
         name="job_title"
         value={form.job_title}
@@ -71,7 +96,7 @@ function SubscriptionForm({ agreementColor = colors.charcoal }) {
         placeholder="e.g. Analyst, Coach"
         style={inputStyle}
       />
-      <label style={{ fontWeight: 600, marginTop: 10, color: colors.charcoal }}>Email *</label>
+      <label style={{ fontWeight: 600, marginTop: 10 }}>Email *</label>
       <input
         name="email"
         value={form.email}
@@ -81,7 +106,7 @@ function SubscriptionForm({ agreementColor = colors.charcoal }) {
         placeholder="you@email.com"
         style={inputStyle}
       />
-      <label style={{ fontWeight: 600, marginTop: 10, color: colors.charcoal }}>Team Name</label>
+      <label style={{ fontWeight: 600, marginTop: 10 }}>Team Name</label>
       <input
         name="team_name"
         value={form.team_name}
@@ -89,7 +114,7 @@ function SubscriptionForm({ agreementColor = colors.charcoal }) {
         placeholder="Optional"
         style={inputStyle}
       />
-      <label style={{ fontWeight: 600, marginTop: 10, color: colors.charcoal }}>League</label>
+      <label style={{ fontWeight: 600, marginTop: 10 }}>League</label>
       <input
         name="league"
         value={form.league}
@@ -97,7 +122,7 @@ function SubscriptionForm({ agreementColor = colors.charcoal }) {
         placeholder="Optional"
         style={inputStyle}
       />
-      <label style={{ fontWeight: 600, marginTop: 10, color: colors.charcoal }}>Interests</label>
+      <label style={{ fontWeight: 600, marginTop: 10 }}>Interests</label>
       <input
         name="interests"
         value={form.interests}
@@ -106,7 +131,7 @@ function SubscriptionForm({ agreementColor = colors.charcoal }) {
         style={inputStyle}
       />
       <div style={{ marginTop: 12 }}>
-        <label style={{ color: agreementColor }}>
+        <label style={{ color: colors.oxfordBlue }}>
           <input
             type="checkbox"
             name="newsletter_consent"
@@ -155,7 +180,6 @@ const inputStyle = {
   border: `1px solid #ddd`,
   fontSize: 15,
   background: colors.white,
-  color: colors.charcoal, // updated to dark font color
 };
 
 export default SubscriptionForm;
