@@ -6,10 +6,9 @@ const sendConfirmationEmail = require("./email");
 const app = express();
 app.use(express.json());
 
-// CORS for Netlify frontend
 app.use(
   cors({
-    origin: "https://tahleelsubs.netlify.app", // Explicitly set your frontend domain
+    origin: "https://tahleelsubs.netlify.app", // Your Netlify site
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
