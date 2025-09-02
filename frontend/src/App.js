@@ -3,6 +3,7 @@ import { colors } from "./theme";
 import SubscriptionForm from "./SubscriptionForm";
 import { Routes, Route } from "react-router-dom";
 import ConfirmPage from "./ConfirmPage";
+import ThankYouPage from "./ThankYouPage"; // <-- Add this import
 
 // Trophy icon as before
 function TrophyIcon({ size = 38 }) {
@@ -284,6 +285,7 @@ function App() {
       <Routes>
         <Route path="/" element={<MainLanding />} />
         <Route path="/confirm" element={<ConfirmPage />} />
+        <Route path="/thank-you" element={<ThankYouPage />} /> {/* <-- Add this route */}
         {/* You can add more routes here */}
       </Routes>
 
